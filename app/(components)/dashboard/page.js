@@ -109,23 +109,23 @@ const Dashboard = () => {
     let q;
     if (filteredStatus === "all") {
       q = query(
-        collection(db, `user/${user.uid}/todo`),
+        collection(db, `user/${user?.uid}/todo`),
         where("isDeleted", "==", false)
       );
     } else if (filteredStatus === "deleted") {
       q = query(
-        collection(db, `user/${user.uid}/todo`),
+        collection(db, `user/${user?.uid}/todo`),
         where("isDeleted", "==", true)
       );
     } else if (filteredStatus === "favorite") {
       q = query(
-        collection(db, `user/${user.uid}/todo`),
+        collection(db, `user/${user?.uid}/todo`),
         where("isFavorite", "==", true),
         where("isDeleted", "==", false)
       );
     } else {
       q = query(
-        collection(db, `user/${user.uid}/todo`),
+        collection(db, `user/${user?.uid}/todo`),
         where("isDeleted", "==", false),
         where("status", "==", filteredStatus === "completed")
       );
@@ -158,7 +158,7 @@ const Dashboard = () => {
     });
 
     return unsubscribe;
-  }, [filteredStatus, searchTerm, user.uid]);
+  }, [filteredStatus, searchTerm, user?.uid]);
 
   // Logic for pagination
   const indexOfLastTodo = currentPage * todosPerPage;
