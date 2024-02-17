@@ -1,0 +1,126 @@
+ <main className="w-full flex flex-col gap-10 items-center justify-center mt-12">
+        <div className="lg:w-[500px]">
+          <div className="flex items-center border-b border-blue-500 py-2">
+            <input
+              className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Enter a Todo"
+              aria-label="Todo title"
+            />
+            <input
+              className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)} // Add onChange event handler
+              placeholder="Enter a Description"
+              aria-label="Todo description"
+            />
+            <button
+              className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-2 px-2 rounded"
+              type="button"
+              onClick={addTodo}
+            >
+              Add New
+            </button>
+          </div>
+
+          <div className="mt-3">
+            <select
+              value={filteredStatus}
+              onChange={handleFilterChange}
+              className="appearance-none bg-transparent border-none text-gray-700 py-1 px-2 leading-tight focus:outline-none"
+            >
+              <option value="all">All</option>
+              <option value="completed">Completed</option>
+              <option value="deleted">Deleted</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="lg:w-[600px] p-4 ">
+          {currentTodos.map((todo) => (
+            <div
+              className="p-4 bg-slate-200 rounded-lg my-2 flex flex-row justify-between"
+              key={todo.id}
+            >
+              <div>
+                <h1
+                  className={`font-semibold ${
+                    todo.status ? "line-through" : ""
+                  }`}
+                >
+                  {todo.title}
+                </h1>
+                <p className="text-[14px] text-gray-500">
+                  {moment(todo?.time?.toDate().getTime()).format("LT")}
+                </p>
+                <p className="text-sm text-gray-600">{todo.description}</p>{" "}
+                {/* Description displayed */}
+              </div>
+              <div>
+                {!todo.isDeleted && (
+                  <>
+                    {todo.status ? (
+                      <button
+                        className="flex-shrink-0  text-sm border-4   rounded p-3"
+                        onClick={() =>
+                          toggleTodoCompletion(todo.id, todo.status)
+                        }
+                      >
+                        <FaRegSquareCheck className="text-[20px]" />
+                      </button>
+                    ) : (
+                      <button
+                        className="flex-shrink-0  text-sm border-4  p-3 rounded"
+                        onClick={() =>
+                          toggleTodoCompletion(todo.id, todo.status)
+                        }
+                      >
+                        <FaRegSquare className="text-[20px]" />
+                      </button>
+                    )}
+                    <button
+                      className="flex-shrink-0  text-sm bg-white  rounded p-3"
+                      onClick={() => deleteTodo(todo.id)}
+                    >
+                      <FaPrescriptionBottle className="text-[20px] text-red-500" />
+                    </button>
+                    <div>
+                      <FaEllipsisVertical />
+                    </div>
+                  </>
+                )}
+                {todo.isDeleted && (
+                  <button
+                    className="flex-shrink-0 bg-yellow-500 hover:bg-yellow-700 border-yellow-500 hover:border-yellow-700 text-sm border-4 text-white py-2 px-2 rounded"
+                    onClick={() => undoDeleteTodo(todo.id)}
+                  >
+                    Undo
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+       
+        <div>
+          <ul className="flex list-none mt-4">
+            {Array.from({
+              length: Math.ceil(todoList.length / todosPerPage),
+            }).map((_, index) => (
+              <li key={index}>
+                <button
+                  className={`mr-2 px-3 py-1 rounded ${
+                    currentPage === index + 1 ? "bg-blue-700" : "bg-blue-500"
+                  }`}
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </main>
