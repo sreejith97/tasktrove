@@ -1,4 +1,5 @@
 // Dashboard.js
+"use client";
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
 import { useAuthState } from "react-firebase-hooks/auth";
