@@ -16,7 +16,7 @@ const Header = () => {
     <>
       <div className="w-full  p-3 flex flex-row justify-between absolute top-0 bg-white ">
         <div className={`text-[30px] font-bold uppercase  ${lilita.className}`}>
-          Task<span className="text-blue-500">Trove</span>
+          Do<span className="text-blue-500">Quirk</span>
         </div>
         <div>
           <img

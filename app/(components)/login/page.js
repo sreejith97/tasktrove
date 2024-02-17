@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider } from "@/config/firebase";
@@ -14,8 +14,15 @@ const lilita = Lilita_One({
 });
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const signUser = () => {
-    signInWithPopup(auth, provider).catch((err) => alert(err.message));
+    signInWithPopup(auth, provider).catch((err) => {
+      setErrorMessage(err.message);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000); // Close the dialog after 5 seconds
+    });
   };
 
   return (
@@ -24,7 +31,7 @@ const Login = () => {
         <div
           className={`absolute top-8 left-18 lg:top-20 lg:left-28 text-[33px] font-bold uppercase  ${lilita.className}`}
         >
-          Task<span className="text-blue-500">Trove</span>
+          Do<span className="text-blue-500">Quirk</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-6">
           <h1 className="text-[33.14px] font-medium uppercase">Login</h1>
@@ -54,6 +61,14 @@ const Login = () => {
           alt="Background Image"
         />
       </div>
+      {/* Error Dialog */}
+      {errorMessage && (
+        <div className="fixed top-4 right-4 w-auto h-full ">
+          <div className="bg-red-500 text-white p-4 rounded-md">
+            <p>{errorMessage}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
