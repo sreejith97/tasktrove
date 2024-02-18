@@ -1,4 +1,3 @@
-// Dashboard.js
 "use client";
 import React, { useEffect, useState } from "react";
 import Header from "../common/Header";
@@ -16,9 +15,21 @@ import {
   where,
 } from "firebase/firestore";
 
+import {
+  FaEllipsisVertical,
+  FaPrescriptionBottle,
+  FaRegSquare,
+  FaRegSquareCheck,
+  FaRegStar,
+  FaRotateLeft,
+  FaStar,
+  FaTrash,
+} from "react-icons/fa6";
+
 import TodoList from "./(components)/TodoList";
 import FilterOptions from "./(components)/FilterOptions";
 import SearchInput from "./(components)/SearchInput";
+import moment from "moment";
 
 const Dashboard = () => {
   console.log(process.env.SDSD);
@@ -30,8 +41,7 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [todosPerPage] = useState(5);
   const [user] = useAuthState(auth);
-
-  // Function to add a new todo
+  //new Todo
   const addTodo = () => {
     addDoc(collection(db, `user/${user?.uid}/todo`), {
       title: input,
@@ -43,23 +53,23 @@ const Dashboard = () => {
     })
       .then(() => {
         setShowAlert(true);
-        setTimeout(() => {
-          setShowAlert(false);
-        }, 4000);
         setInput("");
         setDescription("");
         setIsModalOpen(false);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 4000);
       })
       .catch((err) => alert(err.message));
   };
 
-  // Function to toggle completion status of a todo
+  // Function to toggle completion status
   const toggleTodoCompletion = async (id, status) => {
     const todoRef = doc(db, `user/${user?.uid}/todo`, id);
     await updateDoc(todoRef, { status: !status });
   };
 
-  // Function to toggle favorite status of a todo
+  // Function to toggle favorite status
   const toggleFavorite = async (id, isFavorite) => {
     const todoRef = doc(db, `user/${user?.uid}/todo`, id);
     await updateDoc(todoRef, { isFavorite: !isFavorite });
@@ -139,7 +149,9 @@ const Dashboard = () => {
       const sortedTodos = [...filteredTodos].sort((a, b) => {
         if (a.status && !b.status) return 1;
         if (!a.status && b.status) return -1;
-        return 0;
+
+        // Sort by time if both todos have the same completion status
+        return b.time - a.time; // Most recently created todos first
       });
 
       setTodoList(sortedTodos);
