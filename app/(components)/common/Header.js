@@ -1,6 +1,6 @@
 "use client";
 import { auth } from "@/config/firebase";
-import { Inter, Lilita_One, Roboto } from "next/font/google";
+import { Inter, Lilita_One, Rubik_Glitch } from "next/font/google";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,6 +9,8 @@ const lilita = Lilita_One({
   subsets: ["latin"],
   weight: ["400"],
 });
+
+const second = Rubik_Glitch({ weight: ["400"], subsets: ["latin"] });
 
 const Header = () => {
   const [user] = useAuthState(auth);
@@ -19,7 +21,7 @@ const Header = () => {
     <>
       <div className="w-full  p-3 flex flex-row justify-between absolute top-0 bg-white ">
         <div className={`text-[30px] font-bold uppercase  ${lilita.className}`}>
-          Do<span className="text-blue-500">Quirk</span>
+          Do<span className={`text-blue-500 ${second.className}`}>Quirk</span>
         </div>
         <div className="relative">
           <img

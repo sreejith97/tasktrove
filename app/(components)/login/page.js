@@ -6,12 +6,14 @@ import { auth, provider } from "@/config/firebase";
 import Image from "next/image";
 
 import backgrondImage from "../../../public/Loginillustration.png";
-import { Lilita_One } from "next/font/google";
+import { Lilita_One, Rubik_Glitch } from "next/font/google";
 
 const lilita = Lilita_One({
   subsets: ["latin"],
   weight: ["400"],
 });
+
+const second = Rubik_Glitch({ weight: ["400"], subsets: ["latin"] });
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -31,7 +33,7 @@ const Login = () => {
         <div
           className={`absolute top-8 left-18 lg:top-20 lg:left-28 text-[33px] font-bold uppercase  ${lilita.className}`}
         >
-          Do<span className="text-blue-500">Quirk</span>
+          Do<span className={`text-blue-500 ${second.className}`}>Quirk</span>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-6">
           <h1 className="text-[33.14px] font-medium uppercase">Login</h1>

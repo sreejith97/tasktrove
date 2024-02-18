@@ -26,29 +26,29 @@ const Dashboard = () => {
   const [description, setDescription] = useState("");
   const [todoList, setTodoList] = useState([]);
   const [filteredStatus, setFilteredStatus] = useState("all");
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [todosPerPage] = useState(5); // Number of todos per page
+  const [todosPerPage] = useState(5);
   const [user] = useAuthState(auth);
 
   // Function to add a new todo
   const addTodo = () => {
     addDoc(collection(db, `user/${user?.uid}/todo`), {
       title: input,
-      description: description, // Include description field
+      description: description,
       status: false,
       isDeleted: false,
-      isFavorite: false, // New field for favorite status
+      isFavorite: false,
       time: serverTimestamp(),
     })
       .then(() => {
-        setShowAlert(true); // Show alert when todo is successfully added
+        setShowAlert(true);
         setTimeout(() => {
-          setShowAlert(false); // Turn off alert after 4 seconds
+          setShowAlert(false);
         }, 4000);
         setInput("");
         setDescription("");
-        setIsModalOpen(false); // Clear description after adding todo
+        setIsModalOpen(false);
       })
       .catch((err) => alert(err.message));
   };
@@ -88,18 +88,6 @@ const Dashboard = () => {
     setSearchTerm(value);
   };
 
-  // const deletePermanently = async (id) => {
-  //   try {
-  //     const todoRef = doc(db, `user/${user.uid}/todo`, id);
-  //     await deleteDoc(todoRef);
-  //     // Optionally, you may want to remove the todo from the state to reflect the deletion immediately
-  //     setTodoList(todoList.filter((todo) => todo.id !== id));
-  //   } catch (error) {
-  //     console.error("Error deleting todo:", error);
-  //     // Handle errors as needed
-  //   }
-  // };
-
   const deletePermanently = (id) => {
     deleteDoc(doc(db, `user/${user?.uid}/todo/${id}`));
   };
@@ -135,10 +123,10 @@ const Dashboard = () => {
       const todos = snapshot.docs.map((doc) => ({
         id: doc.id,
         title: doc.data().title,
-        description: doc.data().description, // New field for description
+        description: doc.data().description,
         status: doc.data().status,
         isDeleted: doc.data().isDeleted,
-        isFavorite: doc.data().isFavorite, // New field for favorite status
+        isFavorite: doc.data().isFavorite,
         time: doc.data().time,
       }));
 
@@ -160,7 +148,7 @@ const Dashboard = () => {
     return unsubscribe;
   }, [filteredStatus, searchTerm, user?.uid]);
 
-  // Logic for pagination
+  // pagination
   const indexOfLastTodo = currentPage * todosPerPage;
   const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
   const currentTodos = todoList.slice(indexOfFirstTodo, indexOfLastTodo);
@@ -169,7 +157,7 @@ const Dashboard = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showAlert, setShowAlert] = useState(false); // State to manage alert visibility
+  const [showAlert, setShowAlert] = useState(false);
 
   return (
     <div className="flex justify-center flex-col">
@@ -234,7 +222,6 @@ const Dashboard = () => {
             handleSearch={handleSearch}
           />
 
-          {/* Add the SearchInput component */}
           <TodoList
             todos={currentTodos}
             toggleTodoCompletion={toggleTodoCompletion}
