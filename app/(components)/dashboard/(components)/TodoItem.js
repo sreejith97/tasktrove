@@ -58,7 +58,7 @@ const TodoItem = ({
           {moment(todo?.time?.toDate().getTime()).format("LT")}
         </span>
       </div>
-      <div className="flex-1 flex flex-row justify-end gap-4 items-center">
+      <div className="flex-1 flex flex-row justify-end gap-3 items-center">
         {!todo.isDeleted && (
           <>
             <button
@@ -72,7 +72,7 @@ const TodoItem = ({
               )}
             </button>
             <button className="rounded p-3" onClick={() => deleteTodo(todo.id)}>
-              <FaPrescriptionBottle className="text-[20px] text-red-500" />
+              <FaTrash className="text-[20px] text-red-500" />
             </button>
             <button>
               <FaEllipsisVertical className="text-[20px]" />

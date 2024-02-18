@@ -172,19 +172,19 @@ const Dashboard = () => {
   const [showAlert, setShowAlert] = useState(false); // State to manage alert visibility
 
   return (
-    <div>
+    <div className="flex justify-center flex-col">
       <Header />
 
-      <main className="w-full  flex flex-col lg:flex-row lg:h-screen mt-[80px] lg:mt-[0px] ">
+      <main className="w-full  flex flex-col lg:flex-row lg:h-screen mt-[80px] lg:mt-[0px]  max-w-[1700px] ">
         <div
-          className="w-20 h-20 flex items-center justify-center bg-blue-500 rounded-full absolute bottom-7 right-7 lg:hidden"
+          className="w-16 h-16 flex items-center justify-center bg-blue-500 rounded-full absolute bottom-7 right-7 lg:hidden hover:scale-110 duration-300 transition ease-in-out hover:bg-blue-600"
           onClick={() => {
             setIsModalOpen(true);
           }}
         >
           <h1 className="text-[33px] font-bold text-white">+</h1>
         </div>
-        <div className="flex-1 p-4 border-r-2 border-gray-300 lg:flex flex-col justify-start items-center gap-y-5 hidden lg:mt-[80px]">
+        <div className="flex-1 p-4 border-r-2 border-gray-300 lg:flex flex-col justify-center items-center gap-y-5 hidden lg:mt-[80px]">
           <h1 className="text-3xl font-bold">TODO</h1>
           <p className="max-w-[500px] text-justify text-gray-500 ">
             Simplify your daily routine with our intuitive todo app. Efficiently
@@ -206,13 +206,13 @@ const Dashboard = () => {
                 type="text"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="border-2 border-gray-300 p-2 rounded-md"
+                className="border-2 border-gray-300 p-2 rounded-md "
                 placeholder="Desciption"
                 required
               />
 
               <button
-                className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-2 px-2 rounded mx-4 disabled:bg-gray-400 disabled:border-gray-400"
+                className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-2 px-2 rounded mx-4 disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-not-allowed"
                 type="button"
                 onClick={addTodo}
                 disabled={!input || !description}
