@@ -15,21 +15,9 @@ import {
   where,
 } from "firebase/firestore";
 
-import {
-  FaEllipsisVertical,
-  FaPrescriptionBottle,
-  FaRegSquare,
-  FaRegSquareCheck,
-  FaRegStar,
-  FaRotateLeft,
-  FaStar,
-  FaTrash,
-} from "react-icons/fa6";
-
 import TodoList from "./(components)/TodoList";
 import FilterOptions from "./(components)/FilterOptions";
-import SearchInput from "./(components)/SearchInput";
-import moment from "moment";
+import TestComponents from "../common/TestComponents";
 
 const Dashboard = () => {
   console.log(process.env.SDSD);
@@ -102,7 +90,7 @@ const Dashboard = () => {
     deleteDoc(doc(db, `user/${user?.uid}/todo/${id}`));
   };
 
-  // Effect to fetch todos based on filter, search term, and user ID
+  // Effect to fetch todos based on filter/search/ user ID
   useEffect(() => {
     let q;
     if (filteredStatus === "all") {
@@ -151,7 +139,7 @@ const Dashboard = () => {
         if (!a.status && b.status) return -1;
 
         // Sort by time if both todos have the same completion status
-        return b.time - a.time; // Most recently created todos first
+        return b.time - a.time;
       });
 
       setTodoList(sortedTodos);
@@ -172,7 +160,7 @@ const Dashboard = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   return (
-    <div className="flex justify-center flex-col">
+    <div className="flex w-full   items-center flex-col">
       <Header />
 
       <main className="w-full  flex flex-col lg:flex-row lg:h-screen mt-[80px] lg:mt-[0px]  max-w-[1700px] ">
@@ -262,6 +250,7 @@ const Dashboard = () => {
           </div>
         </div>
       </main>
+
       {isModalOpen && (
         <div className="modal bg-[#4b4b4b64] w-full h-screen absolute top-0 flex items-center justify-center lg:hidden px-4">
           <div className=" shadow-lg bg-white p-4 w-full py-8 rounded-md">

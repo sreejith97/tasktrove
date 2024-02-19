@@ -13,3 +13,28 @@
   font-weight: 400;
   font-style: normal;
 }
+
+/* .todo-item {
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.swiping-right {
+  transform: translateX(100px);
+}
+
+.swiping-left {
+  transform: translateX(-100px);
+} */
+
+.todo-item {
+  transition: transform 0.3s ease; /* Transition for smooth movement */
+}
+
+.todo-item:active {
+  cursor: grab; /* Change cursor on item click */
+}
+
+.todo-item:active:hover {
+  cursor: grabbing; /* Change cursor on item click and hold */
+}

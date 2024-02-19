@@ -1,4 +1,3 @@
-// TodoList.js
 import React from "react";
 import TodoItem from "./TodoItem";
 
@@ -11,10 +10,10 @@ const TodoList = ({
   deletePermanently,
 }) => {
   if (todos.length === 0) {
-    return <p>No todos found.</p>; // Render a message if no todos are found
+    return <p>No todos found.</p>;
   }
   return (
-    <div className="mt-5 w-full">
+    <div className="mt-5 w-full overflow-x-hidden">
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

@@ -9,7 +9,7 @@ import {
   FaRegStar,
   FaRotateLeft,
   FaStar,
-  FaTrash, // Import the delete icon
+  FaTrash,
 } from "react-icons/fa6";
 
 const TodoItem = ({
@@ -18,7 +18,7 @@ const TodoItem = ({
   toggleFavorite,
   deleteTodo,
   undoDeleteTodo,
-  deletePermanently, // Add the deletePermanently function
+  deletePermanently,
 }) => {
   return (
     <div className="flex flex-row w-full items-center border-b-2 py-3">
@@ -43,7 +43,7 @@ const TodoItem = ({
           </>
         )}
       </div>
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col select-none">
         <h1
           className={`font-semibold text-[20px] ${
             todo.status ? "line-through" : ""
@@ -54,11 +54,11 @@ const TodoItem = ({
         <p className="text-[15px] w-full text-gray-500 max-w-[200px] lg:max-w-[500px] truncate">
           {todo.description}
         </p>
-        <span className="text-[12px] text-gray-500">
+        <span className="text-[12px] text-gray-500 select-none ">
           {moment(todo?.time?.toDate().getTime()).format("LT")}
         </span>
       </div>
-      <div className="flex-1 flex flex-row justify-end gap-3 items-center">
+      <div className="flex-1 flex flex-row justify-end gap-3 items-center select-none">
         {!todo.isDeleted && (
           <>
             <button
@@ -81,14 +81,13 @@ const TodoItem = ({
         )}
         {todo.isDeleted && (
           <>
-            {/* Button to undo delete */}
             <button
               className="py-2 px-2"
               onClick={() => undoDeleteTodo(todo.id)}
             >
               <FaRotateLeft className="text-[25px] text-yellow-500 font-semibold" />
             </button>
-            {/* Button to permanently delete */}
+
             <button
               className="py-2 px-2"
               onClick={() => deletePermanently(todo.id)}
